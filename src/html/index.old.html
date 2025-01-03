@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MaqNews</title>
+    <link rel="stylesheet" href="https://www.maqplan.com.br/assets/css/bulma.css">
+    <link rel="stylesheet" href="https://www.maqplan.com.br/assets/css/app.css">
+    <link rel="stylesheet" href="https://www.maqplan.com.br/assets/css/blue.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Nexa Bold';
+            src: url('https://www.maqplan.com.br/assets/fonts/text/nexa/NexaBold.woff') format('woff');
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Nexa Light';
+            src: url('https://www.maqplan.com.br/assets/fonts/text/nexa/NexaLight.woff') format('woff');
+            font-weight: 300;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #2a292f;
+            color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .header h1 {
+            font-family: 'Nexa Bold', sans-serif;
+            font-size: 1.5rem;
+        }
+
+        .header .datetime {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+        }
+
+        .carousel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .carousel h2 {
+            font-family: 'Nexa Bold', sans-serif;
+            margin: 20px 0;
+        }
+
+        .carousel-item {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: justify;
+            padding: 20px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .carousel-item.active {
+            display: flex;
+        }
+
+        .carousel-item.horizontal img {
+            max-width: 50%;
+            margin-bottom: 15px;
+        }
+
+        .carousel-item .text-content p {
+            font-family: 'Roboto', sans-serif;
+            font-size: 2vw;
+            margin-bottom: 15px;
+        }
+
+        .carousel-item.motivation .text-content p {
+            font-family: 'Nexa Bold', sans-serif;
+            font-size: 3vw;
+        }
+
+        .footer {
+            font-family: 'Roboto', sans-serif;
+            text-align: center;
+            padding: 10px 20px;
+            background-color: #363636;
+            color: #f0f0f0;
+            font-size: 0.8rem;
+        }
+
+        .footer a {
+            color: #0f7cff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <a href="https://www.maqplan.com.br">
+                <img src="https://via.placeholder.com/150" alt="Logo">
+            </a>
+            <h1>MaqNews</h1>
+        </div>
+        <div class="datetime" id="datetime"></div>
+    </div>
+    <div class="container">
+        <div class="carousel" id="carousel">
+            <div class="carousel-item active">
+                <h2>TÍTULO DA NOTÍCIA/ATUALIZAÇÃO</h2>
+                <img src="https://via.placeholder.com/800x400" alt="Notícia 1">
+                <div class="text-content">
+                    <p>Texto até 200 caracteres com informação essencial e chamariz para o link.</p>
+                    <canvas id="qr-1"></canvas>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <h2>INSPIRE-SE</h2>
+                <div class="text-content">
+                    <p>Frase motivacional com até 200 caracteres.</p>
+                    <p><i>Autor/Origem</i></p>
+                    <canvas id="qr-2"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        Copyright &copy; 2025 Todos direitos reservados - Maqplan Software | Desenvolvido por 
+        <a href="mailto:daniel.aureliano@gmail.com?subject=Vi%20sua%20p%C3%A1gina%20para%20Maqplan%20e%20quero%20saber%20mais&bcc=daniel.maqplan@gmail.com&body=Vim%20do%20seu%20site%20para%20Maqplan.">Daniel Aureliano</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <script>
+        const carousel = document.getElementById('carousel');
+        const items = carousel.querySelectorAll('.carousel-item');
+        let index = 0;
+
+        function updateCarousel() {
+            items.forEach((item, i) => {
+                item.classList.toggle('active', i === index);
+            });
+        }
+
+        setInterval(() => {
+            index = (index + 1) % items.length;
+            updateCarousel();
+        }, 5000);
+
+        function generateQRCodes() {
+            QRCode.toCanvas(document.getElementById('qr-1'), 'https://example.com/noticia1');
+            QRCode.toCanvas(document.getElementById('qr-2'), 'https://example.com/frase1');
+        }
+
+        generateQRCodes();
+
+        function updateDateTime() {
+            const datetime = document.getElementById('datetime');
+            const now = new Date();
+            const options = { dateStyle: 'full', timeStyle: 'short' };
+            datetime.textContent = now.toLocaleString('pt-BR', options);
+        }
+
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Carrossel de notícias e frases motivacionais para colaboradores da Maqplan. - Uso"
+    />
+    <title>MaqNews</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      <style > @font-face {
+        font-family: "Nexa Bold";
+        src: url("https://www.maqplan.com.br/assets/fonts/text/nexa/NexaBold.woff")
+            format("woff2"),
+          url("https://www.maqplan.com.br/assets/fonts/text/nexa/NexaLight.woff")
+            format("woff");
+        font-weight: bold;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Nexa Light";
+        src: url("https://www.maqplan.com.br/assets/fonts/text/nexa/NexaLight.woff")
+          format("woff");
+        font-weight: 300;
+        font-style: normal;
+      }
+
+      :root {
+        --primary-color: #363636;
+        --secondary-color: #039be5;
+        --text-color: #f0f0f0;
+        --background-color: #2a292f;
+        --accent-color: #0f7cff;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+          "Segoe UI Symbol";
+        background-color: var(--background-color);
+        color: var(--text-color);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background: linear-gradient(
+          90deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: var(--text-color);
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        position: relative;
+      }
+
+      .header::after {
+        content: "";
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 100%;
+        height: 0.075em;
+        border-radius: 24px;
+        background: linear-gradient(
+          90deg,
+          var(--secondary-color),
+          var(--accent-color)
+        );
+        box-shadow: 0 0 12px var(--accent-color), 0 0 20px var(--accent-color);
+      }
+
+      .header .logo {
+        display: flex;
+        align-items: center;
+      }
+
+      .header .logo a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+      }
+
+      .header__logo img {
+        height: 36px;
+        margin-right: 12px;
+      }
+
+      .header h1 {
+        font-family: "Nexa Bold", sans-serif;
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+      .header .datetime {
+        font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
+          "Segoe UI Emoji", "Segoe UI Symbol";
+        font-size: 1rem;
+        font-weight: lighter;
+      }
+
+      .container {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .carousel {
+        display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        height: 100%;
+        overflow: hidden;
+            position: relative;
+      }
+      .carousel h2{
+        font-size: 1.5rem;
+        font-family: 'Nexa Bold', sans-serif;
+        margin: 20px 0;
+      }
+
+      .carousel__item {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: justify;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+      }
+
+      .carousel__item.active {
+        opacity: 1;
+        z-index: 1;
+        display: flex;
+      }
+      .carousel__item.horizontal img{
+        max-width: 50%;
+        margin-bottom: 15px;
+      }
+      .carousel__item .text-content p {
+        font-family: 'Roboto',sans-serif;
+        font-size: 2vw;
+        margin-bottom: 15px;
+    }
+    .carousel__item.motivation .text-content p{
+        font-family: 'Nexa Bold', sans-serif;
+            font-size: 3vw;
+    }
+      .carousel__indicators {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+      }
+
+      .carousel__indicators button {
+        width: 12px;
+        height: 12px;
+        border: none;
+        border-radius: 50%;
+        background-color: var(--accent-color);
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .carousel__indicators button.active {
+        background-color: var(--accent-color);
+      }
+
+      .carousel__progress-bar {
+        position: absolute;
+        bottom: 10px;
+        left: 0;
+        height: 5px;
+        background-color: var(--accent-color);
+        transition: width 30s linear;
+      }
+
+      .footer {
+        font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
+          "Segoe UI Emoji", "Segoe UI Symbol";
+        text-align: center;
+        padding: 10px 20px;
+        background-color: var(--primary-color);
+        color: var(--text-color);
+        font-size: 0.8rem;
+        flex-shrink: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+          "Segoe UI Symbol";
+      }
+
+      a,
+      href {
+        color: var(--accent-color);
+        text-decoration: none;
+      }
+
+      @media screen and (min-width: 769px) {
+        .carousel {
+          display: flex;
+        }
+      }
+
+      @media screen and (max-width: 768px) {
+        .feed {
+          display: flex;
+        }
+      }
+      img {
+        max-width: 80%;
+        max-height: 40%;
+        margin-bottom: 20px;
+        border-radius: 10px;
+      }
+      canvas{
+        width: 80%;
+        height: 60%;
+        margin-bottom: 20px;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="header__logo">
+        <a href="https://www.maqplan.com.br">
+          <img
+            src="https://a0e30819b37637906a0fb71950dd8b08.cdn.bubble.io/f1728066571744x153531991504050050/logo-M-Maqplan-branca.svg"
+            alt="Logo Maqplan"
+          />
+        </a>
+        <img
+          src="https://a0e30819b37637906a0fb71950dd8b08.cdn.bubble.io/f1728066890039x826356736543406000/MaqNews.svg"
+          alt="Logo MaqNews"
+        />
+        <p>Informações que Movimentam Nosso Futuro</p>
+      </div>
+      <div class="datetime" id="datetime" aria-live="polite"></div>
+    </div>
+    <div class="container">      
+          <div class="carousel__item active" style="background: #1d3557; color: white" aria-hidden="false">
+        <h2>Personalize suas etiquetas com facilidade!</h2>
+        <div class="carousel ">
+          <img
+            src="https://a0e30819b37637906a0fb71950dd8b08.cdn.bubble.io/f1733257501756x411333992604208100/Novidades%20dezembro%20Maqplan.GIF"
+            alt="Notícia 1"
+          />
+          <div class="text-content">
+            <p>
+              Agora é possível criar etiquetas sob medida diretamente no sistema
+              no Gestor Web. ✅ Ajuste tamanho e posição. ✅ Inclua código de
+              barras e preços. ✅ Pré-visualize antes de imprimir.
+            </p>
+            <canvas id="qr-1"></canvas>
+          </div>
+        </div>
+        </div>
+        <h2>INSPIRE-SE</h2>
+        <div class="carousel__item" style="background: #a8dadc; color: black" aria-hidden="true">
+            <p>
+              Use palavras que motivem e contribuam para um ambiente saudável.
+              Evite críticas destrutivas e fofocas. Valorize a paciência, o
+              respeito e o incentivo para criar conexões melhores.
+            </p>
+            <p><i>— John Bunyan</i></p>
+            <canvas id="qr-2"></canvas>
+          </div>
+        </div>
+        <div class="carousel__progress-bar" id="progress-bar"></div>
+      </div>
+      <div class="carousel__indicators" id="carousel-indicators">
+        <button class="active" aria-label="Slide 1"></button>
+        <button aria-label="Slide 2"></button>
+        <button aria-label="Slide 3"></button>
+      </div>
+    </div>
+
+    <div class="footer">
+      Copyright &copy; 2025 Todos direitos reservados - Maqplan Software |
+      Desenvolvido por
+      <a
+        href="mailto:daniel.aureliano@gmail.com?subject=Vi%20sua%20p%C3%A1gina%20para%20Maqplan%20e%20quero%20saber%20mais&bcc=daniel.maqplan@gmail.com&body=Vim%20do%20seu%20site%20para%20Maqplan."
+        >Daniel Aureliano.</a
+      >
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <script>
+       const carouselItems = document.querySelectorAll(".carousel__item");
+      const indicators = document.querySelectorAll(
+        ".carousel__indicators button"
+      );
+      const progressBar = document.getElementById("progress-bar");
+      let currentIndex = 0;
+      let interval;
+
+      // Atualiza o estado ativo do carrossel e indicadores
+      function updateCarousel() {
+        carouselItems.forEach((item, index) => {
+          const isActive = index === currentIndex;
+          item.classList.toggle("active", isActive);
+          item.setAttribute("aria-hidden", !isActive);
+        });
+
+        indicators.forEach((indicator, index) => {
+          indicator.classList.toggle("active", index === currentIndex);
+        });
+
+        // Reinicia a barra de progresso
+        progressBar.style.transition = "none";
+        progressBar.style.width = "0%";
+        setTimeout(() => {
+          progressBar.style.transition = "width 30s linear";
+          progressBar.style.width = "100%";
+        }, 50);
+      }
+
+      // Troca automaticamente para o próximo slide
+      function showNextSlide() {
+        currentIndex = (currentIndex + 1) % carouselItems.length;
+        updateCarousel();
+      }
+
+      // Inicia o carrossel automático
+      function startCarousel() {
+        interval = setInterval(showNextSlide, 5000); // 30 segundos por slide
+      }
+
+      // Pausa o carrossel ao interagir
+      function pauseCarousel() {
+        clearInterval(interval);
+      }
+
+      function generateQRCodes() {
+        QRCode.toCanvas(
+          document.getElementById("qr-1"),
+          "https://youtu.be/J8V_0OKibN0"
+        );
+        QRCode.toCanvas(
+          document.getElementById("qr-2"),
+          "https://bible.com/bible/1930/eph.4.29.NVT"
+        );
+      }
+
+      generateQRCodes();
+      adjustLayout();
+
+      window.addEventListener("resize", adjustLayout);
+// Configura os eventos dos indicadores
+indicators.forEach((indicator, index) => {
+        indicator.addEventListener("click", () => {
+          pauseCarousel();
+          currentIndex = index;
+          updateCarousel();
+          startCarousel();
+        });
+      });
+
+      // Atualiza a data e hora
+      function updateDateTime() {
+        const now = new Date();
+        document.getElementById("datetime").textContent =
+          now.toLocaleString("pt-BR");
+      }
+
+      // Inicia a funcionalidade
+      setInterval(updateDateTime, 1000);
+      updateDateTime();
+      startCarousel();
+      updateCarousel();
+    </script>
+  </body>
+</html>
