@@ -34,7 +34,7 @@ MaqNews/
 ## Instalação
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/maqnews.git
+   git clone https://github.com/danielaureliano/maqnews.git
    cd maqnews
    ```
 
