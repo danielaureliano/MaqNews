@@ -1,0 +1,19 @@
+2025-01-03T17:46:06.681Z [INFO]: Configurações de segurança e cache aplicadas com sucesso.
+2025-01-03T17:46:06.983Z [ERROR]: Erro na inicialização: updateDateTime is not defined
+2025-01-03T17:47:25.671Z [INFO]: Configurações de segurança e cache aplicadas com sucesso.
+2025-01-03T17:47:25.933Z [ERROR]: Erro na inicialização: updateDateTime is not defined
+2025-01-03T17:51:04.705Z [INFO]: Configurações de segurança e cache aplicadas com sucesso.
+2025-01-03T17:51:05.296Z [ERROR]: Erro ao buscar dados: Invalid URL
+2025-01-03T17:51:05.297Z [ERROR]: Erro na inicialização: Invalid URL
+2025-01-03T17:54:13.272Z [INFO]: Configurações de segurança e cache aplicadas com sucesso.
+2025-01-03T17:54:13.722Z [ERROR]: Erro ao buscar dados: Invalid URL
+2025-01-03T17:54:13.726Z [ERROR]: Erro na inicialização: Invalid URL
+2025-01-03T17:54:13.729Z [INFO]: Servidor rodando na porta 3000
+2025-01-03T20:06:30.850Z [INFO]: Configurações de segurança e cache aplicadas com sucesso.
+2025-01-03T20:06:31.504Z [ERROR]: Erro ao buscar dados: Invalid URL
+2025-01-03T20:06:31.508Z [ERROR]: Erro na inicialização: Invalid URL
+2025-01-03T20:06:31.511Z [INFO]: Servidor rodando na porta 3000
+2025-01-03T20:18:36.287Z [INFO]: Configurações de segurança e cache aplicadas com sucesso.
+2025-01-03T20:18:36.827Z [ERROR]: Erro ao buscar dados: Invalid URL
+2025-01-03T20:18:36.829Z [ERROR]: Erro na inicialização: Invalid URL
+2025-01-03T20:18:36.831Z [INFO]: Servidor rodando na porta 3000

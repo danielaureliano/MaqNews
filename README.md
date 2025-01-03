@@ -1,4 +1,3 @@
-
 # MaqNews
 
 ## Descrição
@@ -14,7 +13,7 @@ MaqNews/
 │   │   ├── api.js
 │   │   ├── app.js
 │   │   ├── carousel.js
-│   │   ├── config.js
+│   │   ├── client.js
 │   │   ├── logger.js
 │   ├── css/      # Arquivos CSS
 │   │   ├── styles.css
@@ -115,3 +114,25 @@ Caso tenha dúvidas ou sugestões, entre em contato com o desenvolvedor:
 
 ## Licença
 Este projeto é propriedade da Maqplan e todos os direitos estão reservados.
+
+---
+
+## Código do Servidor
+```javascript
+// filepath: src/js/app.js
+const express = require('express');
+const path = require('path');
+const app = express();
+
+// Servir arquivos estáticos das pastas 'src/css' e 'src/js'
+app.use('/css', express.static(path.join(__dirname, '..', 'css')));
+app.use('/js', express.static(path.join(__dirname, '..', 'js')));
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'html', 'index.html'));
+});
+
+app.listen(3000, () => {
+  console.log('Servidor rodando na porta 3000');
+});
+```

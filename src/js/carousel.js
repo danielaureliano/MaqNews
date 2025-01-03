@@ -42,6 +42,9 @@ function generateCarouselItems(data) {
     indicators.appendChild(button);
   });
 
+  // Adiciona a classe 'carousel__indicators' ao elemento de indicadores
+  indicators.classList.add("carousel__indicators");
+
   // Atualiza a lista global de itens do carrossel
   carouselItems = document.querySelectorAll(".carousel__item");
 }
@@ -96,8 +99,4 @@ function startCarousel() {
   }, 5000);
 }
 
-module.exports = {
-  generateCarouselItems,
-  updateCarousel,
-  startCarousel,
-};
+export { generateCarouselItems, updateCarousel, startCarousel };

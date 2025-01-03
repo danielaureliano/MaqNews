@@ -1,5 +1,5 @@
-const { createLogger, format, transports } = require("winston");
-require("winston-daily-rotate-file");
+import { createLogger, format, transports } from "winston";
+import "winston-daily-rotate-file";
 
 const transport = new transports.DailyRotateFile({
   filename: "logs/%DATE%-combined.log",
@@ -19,9 +19,9 @@ const logger = createLogger({
     )
   ),
   transports: [
-    new transports.Console(), // Loga no console para depuração em tempo real
+    new transports.Console(), // Logs no console para depuração em tempo real
     transport, // Gera arquivos rotativos diários
   ],
 });
 logger.info("Configurações de segurança e cache aplicadas com sucesso.");
-module.exports = logger;
+export default logger;

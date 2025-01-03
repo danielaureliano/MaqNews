@@ -1,6 +1,10 @@
-require("dotenv").config();
-const fetch = require("node-fetch"); // Para requisições HTTP
-const logger = require("./logger");  // Para logs de erros e eventos
+import dotenv from "dotenv";
+dotenv.config();
+// Para requisições HTTP
+import fetch from "node-fetch"; 
+// Para logs de erros e eventos
+import logger from "./logger.js";
+import QRCode from "qrcode"; 
 
 const API_URL = process.env.API_URL;
 const API_PRIVATE_KEY = process.env.API_PRIVATE_KEY; // Token seguro
@@ -30,4 +34,4 @@ async function fetchData() {
   }
 }
 
-module.exports = { fetchData };
+export { fetchData };

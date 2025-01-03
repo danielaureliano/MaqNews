@@ -1,9 +1,15 @@
-const logger = require("./logger");
-const { fetchData } = require("./api");
-const { updateCarousel } = require("./carousel");
-const express = require("express");
-const helmet = require("helmet");
-const path = require("path");
+import logger from "./logger.js";
+import { fetchData } from "./api.js";
+import { updateCarousel } from "./carousel.js";
+import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
+import helmet from "helmet";
+import QRCode from "qrcode";
+
+// Configuração de diretórios para ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
@@ -13,47 +19,34 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", "https://example.com"], // Adicione suas URLs permitidas
+        scriptSrc: ["'self'", "https://www.maqplan.com.br", "http://bubble-55211.bubbleapps.io/", "https://bubble-55211.bubbleapps.io/version-test/api/1.1/"], // Adicione suas URLs permitidas
         styleSrc: ["'self'", "https://fonts.googleapis.com"],
-        imgSrc: ["'self'", "https://a0e30819b37637906a0fb71950dd8b08.cdn.bubble.io"], // Exemplo
+        imgSrc: ["'self'", "https://a0e30819b37637906a0fb71950dd8b08.cdn.bubble.io", "https://cdn.bubble.io"], // Exemplo
         connectSrc: ["'self'"],
       },
     },
-    frameguard: { action: "deny" }, // Substitui X-Frame-Options
+    frameGuard: { action: "deny" }, // Substitui X-Frame-Options
     noSniff: true, // Adiciona X-Content-Type-Options
   })
 );
 
-// Configuração de cache para recursos estáticos
-app.use(
-  "/static",
-  express.static(path.join(__dirname, "public"), {
-    maxAge: "1y", // Um ano de cache
-    immutable: true, // Os arquivos não mudarão
-  })
-);
-
-// Adiciona Cache-Control para todas as respostas
-app.use((req, res, next) => {
-  res.setHeader("Cache-Control", "max-age=31536000, immutable");
-  next();
+// Servir arquivos estáticos
+app.use(express.static(path.join(__dirname, "../html")));
+app.use('/css', express.static(path.join(__dirname, '..', 'css')));
+app.use('/js', express.static(path.join(__dirname, '..', 'js')));
+// Rota para servir o arquivo HTML
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'html', 'index.html'));
 });
 
-// Servir arquivos HTML
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "src/html/index.html"));
-});
-
+// Iniciar o servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
+  logger.info(`Servidor rodando na porta ${PORT}`);
 });
 
 async function initialize() {
-  try {
-    updateDateTime(); // Atualiza a hora inicial
-    setInterval(updateDateTime, 1000); // Atualiza a cada segundo
-
+  try {    
     const data = await fetchData();
     logger.info("Aplicação inicializada com sucesso.");
     renderCarousel(data);
@@ -61,25 +54,6 @@ async function initialize() {
     logger.error(`Erro na inicialização: ${error.message}`);
   }
 }
-
-function updateDateTime() {
-  const now = new Date();
-  const datetimeElement = document.getElementById("datetime");
-  
-  if (datetimeElement) {
-    // Exibe a data e hora no formato brasileiro
-    datetimeElement.textContent = now.toLocaleString("pt-BR", {
-      dateStyle: "short",
-      timeStyle: "medium",
-    });
-  } else {
-    console.error("Elemento para exibição de data/hora não encontrado.");
-  }
-}
-
-// Chame essa função na inicialização e configure o intervalo
-updateDateTime();
-setInterval(updateDateTime, 1000); // Atualiza a cada segundo
 
 function renderCarousel(data) {
   const carousel = document.getElementById("carousel");
